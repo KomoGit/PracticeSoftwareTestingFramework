@@ -1,6 +1,6 @@
 # Framework Configuration
 browser: "chromium" # options: chromium, firefox, webkit
 baseUrl: "https://practicesoftwaretesting.com"
-headless: false
+IsHeadless: false
 timeout: 30000
 screenshotOnFailure: true
