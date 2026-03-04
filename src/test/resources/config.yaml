@@ -2,5 +2,5 @@
 browser: "chromium" # options: chromium, firefox, webkit
 baseUrl: "https://practicesoftwaretesting.com"
 IsHeadless: false
-timeout: 30000
+timeout: 10000
 screenshotOnFailure: true
