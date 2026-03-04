@@ -10,10 +10,6 @@ public abstract class BasePage {
         this.page = page;
     }
 
-    public final void navigateTo(String url){
-        page.navigate(url);
-    }
-
     public void waitForPageLoaded(){
         page.waitForLoadState(LoadState.NETWORKIDLE);
         page.waitForLoadState(LoadState.DOMCONTENTLOADED);
