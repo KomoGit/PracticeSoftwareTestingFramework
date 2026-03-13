@@ -1,25 +1,31 @@
 package com.toolshops.tests.base;
 
-import com.microsoft.playwright.*;
-import com.toolshop.framework.models.FrameworkConfig;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
+import com.toolshop.framework.models.FrameworkConfigModel;
 import com.toolshop.framework.utils.ConfigReader;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @ExtendWith(TestWatcher.class)
 public abstract class BaseTest {
 
-    protected static FrameworkConfig config;
+    protected static FrameworkConfigModel config;
 
-    // Everything related to Playwright MUST be ThreadLocal
     protected static final ThreadLocal<Playwright> threadPlaywright = new ThreadLocal<>();
     protected static final ThreadLocal<Browser> threadBrowser = new ThreadLocal<>();
     protected static final ThreadLocal<BrowserContext> threadContext = new ThreadLocal<>();
     protected static final ThreadLocal<Page> threadPage = new ThreadLocal<>();
 
     @BeforeAll
-    static void setupConfig() {
+    static void setup() {
         config = ConfigReader.readConfig();
     }
 
@@ -30,7 +36,7 @@ public abstract class BaseTest {
         threadPlaywright.set(playwright);
 
         BrowserType.LaunchOptions options = new BrowserType.LaunchOptions()
-                .setHeadless(config.IsHeadless);
+                .setHeadless(config.isHeadless);
 
         // 2. Launch a Browser for this thread
         Browser browser = switch (config.browser.toLowerCase()) {

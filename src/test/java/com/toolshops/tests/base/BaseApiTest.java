@@ -3,7 +3,7 @@ package com.toolshops.tests.base;
 import com.microsoft.playwright.APIRequest;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.Playwright;
-import com.toolshop.framework.models.FrameworkConfig;
+import com.toolshop.framework.models.FrameworkConfigModel;
 import com.toolshop.framework.utils.ConfigReader;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,7 +16,7 @@ import java.util.Map;
 public abstract class BaseApiTest {
     Playwright playwright;
     protected APIRequestContext request;
-    protected FrameworkConfig config;
+    protected FrameworkConfigModel config;
 
     @BeforeAll
     void setupApiFramework() {
