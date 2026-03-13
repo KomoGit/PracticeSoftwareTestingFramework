@@ -1,12 +1,13 @@
 package com.toolshop.framework.models;
 
-public class FrameworkConfig {
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public class FrameworkConfigModel {
     public String browser;
     public String baseUrl;
-    public String videoDir;
-    public boolean IsHeadless;
+    public String keyVaultUrl;
+    public boolean isHeadless;
     public boolean screenshotOnFailure;
     public int timeout;
-
-    public FrameworkConfig() {}
 }
