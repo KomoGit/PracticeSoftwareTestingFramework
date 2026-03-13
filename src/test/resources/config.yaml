@@ -1,6 +1,7 @@
 # Framework Configuration
 browser: "chromium" # options: chromium, firefox, webkit
 baseUrl: "https://practicesoftwaretesting.com"
+keyVaultUrl: "https://playwright-datastore.vault.azure.net/"
 IsHeadless: false
 timeout: 10000
 screenshotOnFailure: true
