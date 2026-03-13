@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-public class HomePageTests extends BaseTest {
+class HomePageTests extends BaseTest {
     private HomePage homePage;
 
     @BeforeEach
@@ -19,7 +19,7 @@ public class HomePageTests extends BaseTest {
 
     @Test
     @DisplayName("Verify Home Page Title")
-    @Description("Checks if the correct title is displayed upon loading the home page")
+    @Description("Checks if the correct title is displayed upon loading the page")
     void checkHomePageTitleTest(){
         homePage.waitForPageLoaded();
         Assertions.assertThat(homePage.getPageTitle()).contains("Practice Software Testing");
@@ -57,6 +57,4 @@ public class HomePageTests extends BaseTest {
         Assertions.assertThat(clearedProductCount)
                 .isEqualTo(defaultProductCount);
     }
-
-
 }
