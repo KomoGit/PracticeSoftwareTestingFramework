@@ -1,5 +1,6 @@
 package com.toolshop.framework.pages;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 
@@ -10,9 +11,15 @@ public abstract class BasePage {
         this.page = page;
     }
 
-    public void waitForPageLoaded(){
+    public BasePage waitForPageLoaded(){
         page.waitForLoadState(LoadState.NETWORKIDLE);
         page.waitForLoadState(LoadState.DOMCONTENTLOADED);
+        return this;
+    }
+
+    public BasePage waitForPageElement(String locator){
+        page.waitForSelector(locator);
+        return this;
     }
 
     public final String getPageTitle(){
