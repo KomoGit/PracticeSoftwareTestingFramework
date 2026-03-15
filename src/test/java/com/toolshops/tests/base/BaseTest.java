@@ -55,6 +55,8 @@ public abstract class BaseTest {
         Page page = context.newPage();
         page.navigate(config.baseUrl);
         threadPage.set(page);
+
+        playwright.selectors().setTestIdAttribute("data-test");
     }
 
     @AfterEach
