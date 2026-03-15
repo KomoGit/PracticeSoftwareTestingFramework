@@ -13,15 +13,17 @@ public class HomePage extends BasePage {
     public final Locator searchSubmit;
     public final Locator sortBox;
     public final Locator product;
+    public final Locator productPrices;
 
     public HomePage(Page page) {
         super(page);
 
-        this.searchInput = page.locator("#search-query");
-        this.searchReset = page.locator("//button[@data-test='search-reset']");
-        this.searchSubmit = page.locator("//button[@data-test='search-submit']");
+        this.searchInput = page.getByTestId("search-query");
+        this.searchReset = page.getByTestId("search-reset");
+        this.searchSubmit = page.getByTestId("search-submit");
         this.sortBox = page.getByTestId("sort");
-        this.product = page.locator("//h5[@data-test='product-name']");
+        this.product = page.getByTestId("product-name");
+        this.productPrices = page.getByTestId("product-price");
     }
 
     public HomePage fillSearchInputAndSubmit(String text){
@@ -50,6 +52,15 @@ public class HomePage extends BasePage {
     public List<String> getAllProductNames(){
         product.first().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED));
         return product.allTextContents();
+    }
+
+    public List<Double> getAllProductPrices(){
+        productPrices.first().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED));
+        return productPrices
+                .allInnerTexts()
+                .stream()
+                .map(price -> Double.parseDouble(price.replace("$","")))
+                .toList();
     }
 
     public int getProductCount(){

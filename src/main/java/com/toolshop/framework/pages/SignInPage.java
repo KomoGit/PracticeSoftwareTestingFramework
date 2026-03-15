@@ -21,13 +21,13 @@ public class SignInPage extends BasePage {
     public SignInPage(Page page) {
         super(page);
 
-        this.emailInput = page.locator("#email");
-        this.passwordInput = page.locator("#password");
-        this.loginButton = page.locator("input[data-test='login-submit']");
+        this.emailInput = page.getByTestId("email");
+        this.passwordInput = page.getByTestId("password");
+        this.loginButton = page.getByTestId("login-submit");
         this.errorBox = page.locator("//div[@class='help-block']");
-        this.emailErrorBox = page.locator("#email-error");
-        this.passwordErrorBox = page.locator("#password-error");
-        this.alertDangerBox = page.locator(".alert-danger");
+        this.emailErrorBox = page.getByTestId("email-error");
+        this.passwordErrorBox = page.getByTestId("password-error");
+        this.alertDangerBox = page.getByTestId(".alert-danger");
     }
 
     public SignInPage open() {

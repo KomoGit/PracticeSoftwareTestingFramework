@@ -17,10 +17,10 @@ public class AccountPage extends BasePage{
     public AccountPage(Page page) {
         super(page);
 
-        this.pageTitle = page.locator("//h1[@data-test='page-title']");
-        this.favoriteButton = page.locator("//a[@data-test='nav-favorites']");
-        this.profileButton = page.locator("//a[@data-test='nav-profile']");
-        this.invoicesButton = page.locator("//a[@data-test='nav-invoices']");
-        this.messagesButton = page.locator("//a[@data-test='nav-messages']");
+        this.pageTitle = page.getByTestId("page-title");
+        this.favoriteButton = page.getByTestId("nav-favorites");
+        this.profileButton = page.getByTestId("nav-profile");
+        this.invoicesButton = page.getByTestId("nav-invoices");
+        this.messagesButton = page.getByTestId("nav-messages");
     }
 }
