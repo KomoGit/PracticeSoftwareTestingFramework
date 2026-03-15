@@ -13,7 +13,7 @@ import java.util.Comparator;
 
 class HomePageTests extends BaseTest {
     private HomePage homePage;
-    private String searchInput = "pliers";
+    private final String searchInput = "pliers";
 
     @BeforeEach
     void setup(){

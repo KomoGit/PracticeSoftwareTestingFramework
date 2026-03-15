@@ -8,8 +8,6 @@ import com.microsoft.playwright.Page;
  */
 public class ContactPage extends BasePage{
 
-    private final String url = "/contact";
-
     public Locator pageTitle;
     public Locator firstNameInput;
     public Locator lastNameInput;
@@ -26,6 +24,7 @@ public class ContactPage extends BasePage{
     }
 
     public ContactPage open() {
+        String url = "/contact";
         page.navigate(url);
         return this;
     }

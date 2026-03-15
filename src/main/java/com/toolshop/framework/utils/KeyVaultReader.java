@@ -6,7 +6,6 @@ import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.toolshop.framework.exceptions.FailedToFormatException;
 import io.github.cdimascio.dotenv.Dotenv;
 

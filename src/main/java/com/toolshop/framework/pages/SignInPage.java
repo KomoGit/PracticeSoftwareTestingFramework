@@ -4,7 +4,6 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 public class SignInPage extends BasePage {
-    private final String url = "/auth/login";
 
     public final Locator emailInput;
     public final Locator passwordInput;
@@ -31,6 +30,7 @@ public class SignInPage extends BasePage {
     }
 
     public SignInPage open() {
+        String url = "/auth/login";
         page.navigate(url);
         return this;
     }
