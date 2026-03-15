@@ -8,9 +8,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 
 class HomePageTests extends BaseTest {
     private HomePage homePage;
+    private String searchInput = "pliers";
 
     @BeforeEach
     void setup(){
@@ -18,7 +21,7 @@ class HomePageTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Verify Home Page Title")
+    @DisplayName("Verify home page title")
     @Description("Checks if the correct title is displayed upon loading the page")
     void checkHomePageTitleTest(){
         homePage.waitForPageLoaded();
@@ -30,12 +33,12 @@ class HomePageTests extends BaseTest {
     @Description("Verifies that searching for an item filters the product list correctly")
     void searchForItemsTest(){
         homePage.waitForPageLoaded();
-        homePage.fillSearchInputAndSubmit("Pliers");
+        homePage.fillSearchInputAndSubmit(searchInput);
 
         Assertions.assertThat(homePage.getAllProductNames())
                 .isNotEmpty()
                 .allSatisfy(productName ->
-                        Assertions.assertThat(productName).containsIgnoringCase("pliers"));
+                        Assertions.assertThat(productName).containsIgnoringCase(searchInput));
     }
 
     @Test
@@ -45,7 +48,7 @@ class HomePageTests extends BaseTest {
         homePage.waitForPageLoaded();
         int defaultProductCount = homePage.getProductCount();
 
-        homePage.fillSearchInputAndSubmit("Pliers");
+        homePage.fillSearchInputAndSubmit(searchInput);
         int searchedProductCount = homePage.getProductCount();
 
         Assertions.assertThat(searchedProductCount)
@@ -56,5 +59,47 @@ class HomePageTests extends BaseTest {
         int clearedProductCount = homePage.getProductCount();
         Assertions.assertThat(clearedProductCount)
                 .isEqualTo(defaultProductCount);
+    }
+
+    @Test
+    @DisplayName("Prices should be correct values")
+    @Description("Prices should be in correct value range")
+    void allPricesShouldBeCorrectValues(){
+        homePage.waitForPageLoaded();
+        var productPrices = homePage.getAllProductPrices();
+        Assertions.assertThat(productPrices)
+                .isNotEmpty()
+                .allSatisfy(price ->
+                        Assertions.assertThat(price)
+                                .isGreaterThan(0.0)
+                                .isLessThan(1000.0));
+    }
+
+    @Test
+    @DisplayName("Product names should be sorted in A-Z alphabetical order")
+    @Description("Names are sorted in the descending alphabetical order from A to Z")
+    void shouldSortInAlphabeticalOrder(){
+        homePage
+                .clickSortOptionByText("Name (A - Z)")
+                .waitForPageElement(".card-img-top")
+                .waitForPageLoaded();
+
+        Assertions
+                .assertThat(homePage.getAllProductNames())
+                .isSortedAccordingTo(String.CASE_INSENSITIVE_ORDER);
+    }
+
+    @Test
+    @DisplayName("Product names should be sorted in Z-A alphabetical order")
+    @Description("Names are sorted in the ascending alphabetical order from Z to A")
+    void shouldSortInReverseAlphabeticalOrder(){
+        homePage
+                .clickSortOptionByText("Name (Z - A)")
+                .waitForPageElement(".card-img-top")
+                .waitForPageLoaded();
+
+        Assertions
+                .assertThat(homePage.getAllProductNames())
+                .isSortedAccordingTo(Comparator.reverseOrder());
     }
 }

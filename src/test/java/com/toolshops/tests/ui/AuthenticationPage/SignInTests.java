@@ -35,7 +35,7 @@ class SignInTests extends BaseTest {
     @Test
     @DisplayName("Verify error message when fields are not filled")
     @Description("If the fields are not filled, error messages must come up")
-    void SignInWithoutFillingInputsTest(){
+    void signInWithoutFillingInputsTest(){
         signInPage
                 .open()
                 .login("", "");
@@ -59,7 +59,7 @@ class SignInTests extends BaseTest {
     @Test
     @DisplayName("Sign in as customer")
     @Description("Signing in as a regular customer account ")
-    void SignInWithUserAccountTest() {
+    void signInWithUserAccountTest() {
         UserModel userModel = keyVaultReader.getSecretAs("jane-doe", UserModel.class);
         signInPage
                 .open()
