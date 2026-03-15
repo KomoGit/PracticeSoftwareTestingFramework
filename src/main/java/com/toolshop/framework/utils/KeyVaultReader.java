@@ -4,6 +4,7 @@ import com.azure.core.exception.AzureException;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.toolshop.framework.exceptions.FailedToFormatException;
@@ -13,7 +14,6 @@ import io.github.cdimascio.dotenv.Dotenv;
  * @author Elnur Abaslı
  */
 public class KeyVaultReader {
-
     private final SecretClient secretClient;
     private final ObjectMapper mapper;
 
@@ -22,17 +22,13 @@ public class KeyVaultReader {
         dotenv.entries().forEach(e -> System.setProperty(e.getKey(), e.getValue()));
     }
 
-    /**
-     * Constructor allows passing the URL from your ConfigConstants or Environment
-     */
     public KeyVaultReader(String vaultUrl) {
         this.secretClient = new SecretClientBuilder()
                 .vaultUrl(vaultUrl)
                 .credential(new DefaultAzureCredentialBuilder().build())
                 .buildClient();
 
-        // Initializing with YAMLFactory as per your requirement
-        this.mapper = new ObjectMapper(new YAMLFactory());
+        this.mapper = new ObjectMapper(new JsonFactory());
     }
 
     /**
