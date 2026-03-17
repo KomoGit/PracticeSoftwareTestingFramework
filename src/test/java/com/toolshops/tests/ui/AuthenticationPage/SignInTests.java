@@ -4,6 +4,7 @@ import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.toolshop.framework.models.UserModel;
 import com.toolshop.framework.pages.AccountPage;
 import com.toolshop.framework.pages.SignInPage;
+import com.toolshop.framework.utils.JsonUtils;
 import com.toolshop.framework.utils.KeyVaultReader;
 import com.toolshops.tests.base.BaseTest;
 import io.qameta.allure.Description;
@@ -16,12 +17,14 @@ class SignInTests extends BaseTest {
     private SignInPage signInPage;
     private AccountPage accountPage;
     private KeyVaultReader keyVaultReader;
+    private JsonUtils jsonUtils;
 
     @BeforeEach()
     void setup(){
         signInPage = new SignInPage(threadPage.get());
         accountPage = new AccountPage(threadPage.get());
         keyVaultReader = new KeyVaultReader(config.keyVaultUrl);
+        jsonUtils = new JsonUtils();
     }
 
     @Test
@@ -48,7 +51,7 @@ class SignInTests extends BaseTest {
     @DisplayName("Verify user cannot sign in with invalid credentials")
     @Description("Checks if the error message will be shown upon using invalid credentials")
     void signInWithInvalidCredentialsTest(){
-        UserModel userModel = keyVaultReader.getSecretAs("invalid-user", UserModel.class);
+        UserModel userModel = jsonUtils.convertToJson(keyVaultReader.getSecretValue("invalid-user"), UserModel.class);
         signInPage
                 .open()
                 .login(userModel.Email, userModel.Password);
@@ -60,7 +63,7 @@ class SignInTests extends BaseTest {
     @DisplayName("Sign in as customer")
     @Description("Signing in as a regular customer account ")
     void signInWithUserAccountTest() {
-        UserModel userModel = keyVaultReader.getSecretAs("jane-doe", UserModel.class);
+        UserModel userModel = jsonUtils.convertToJson(keyVaultReader.getSecretValue("jane-doe"), UserModel.class);
         signInPage
                 .open()
                 .login(userModel.Email, userModel.Password); 
