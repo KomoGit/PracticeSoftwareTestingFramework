@@ -93,10 +93,10 @@ class HomePageTests extends BaseTest {
     @DisplayName("Product names should be sorted in Z-A alphabetical order")
     @Description("Names are sorted in the ascending alphabetical order from Z to A")
     void shouldSortInReverseAlphabeticalOrder(){
-        homePage
-                .clickSortOptionByText("Name (Z - A)")
-                .waitForPageElement(".card-img-top")
-                .waitForPageLoaded();
+            getPage().waitForResponse(
+                    response -> response.url().contains("/products") &&
+                    response.url().contains("sort=name"),
+                    () -> homePage.clickSortOptionByText("Name (Z - A)"));
 
         Assertions
                 .assertThat(homePage.getAllProductNames())

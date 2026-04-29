@@ -12,7 +12,7 @@ public class TestWatcher implements AfterTestExecutionCallback {
     public void afterTestExecution(ExtensionContext context) {
         BaseTest testInstance = (BaseTest) context.getRequiredTestInstance();
 
-        if(testInstance.config.screenshotOnFailure && context.getExecutionException().isPresent()) {
+        if(BaseTest.config.screenshotOnFailure && context.getExecutionException().isPresent()) {
                 byte[] screenshot = testInstance.getPage().screenshot();
                 Allure.addAttachment("Failure Screenshot", new ByteArrayInputStream(screenshot));
         }

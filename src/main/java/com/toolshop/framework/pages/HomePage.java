@@ -46,7 +46,13 @@ public class HomePage extends BasePage {
     public HomePage clickSortOptionByText(String text){
         sortBox.click();
         sortBox.selectOption(text);
+        sortBox.click();
         return this;
+    }
+
+    public ProductPage clickProductByName(String text){
+        product.getByText(text).click();
+        return new ProductPage(page);
     }
 
     public List<String> getAllProductNames(){
